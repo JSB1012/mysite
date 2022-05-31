@@ -178,47 +178,6 @@ public class BoardRepository {
 		return result;
 	}
 
-	private int maxGroupno() {
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		int num = 1;
-		String no = null;
-		try {
-			conn = getConnection();
-
-			String sql = "select max(g_no)+1 from board";
-			pstmt = conn.prepareStatement(sql);
-
-			rs = pstmt.executeQuery();
-			if (rs.next())
-				no = rs.getString(1);
-			if (no != null) {
-				num = Integer.parseInt(no);
-			} else {
-				num = 1;
-			}
-
-			return num;
-
-		} catch (SQLException e) {
-			System.out.println("error:" + e);
-		} finally {
-			try {
-				if (pstmt != null) {
-					pstmt.close();
-				}
-				if (conn != null) {
-					conn.close();
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-
-		return 1;
-	}
-
 	public BoardVo findByNo(int sno) {
 		Connection connection = null;
 		PreparedStatement pstmt = null;
