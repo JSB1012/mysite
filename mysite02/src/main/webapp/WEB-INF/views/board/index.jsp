@@ -15,7 +15,7 @@
 		<c:import url="/WEB-INF/views/includes/header.jsp" />
 		<div id="content">
 			<div id="board">
-				<form id="search_form" action="" method="post">
+				<form id="search_form" action="${pageContext.request.contextPath }/board?a=list&keyword=${param.keyword}" method="post">
 					<input type="text" id="kwd" name="kwd" value="">
 					<input type="submit" value="찾기">
 				</form>
@@ -89,15 +89,37 @@
 				</table>
 
 				<!-- pager 추가 -->
+								
 				<div class="pager">
 					<ul>
-						<li><a href="">◀</a></li>
-						<li><a href="">1</a></li>
-						<li class="selected">2</li>
-						<li><a href="">3</a></li>
-						<li>4</li>
-						<li>5</li>
-						<li><a href="">▶</a></li>
+						<c:if test="${page.pageSet == 1}">
+							<li>◀</li>
+						</c:if>
+						<c:if test="${page.pageSet != 1}">
+							<li><a
+								href="${pageContext.request.contextPath }/board?a=list&cur=${page.prevPage}">◀</a></li>
+						</c:if>
+
+						<c:forEach begin="${page.beginPage }" end="${page.endPage }"
+							step="1" varStatus="status">
+							<c:choose>
+								<c:when test="${page.totalPage >= status.index }">
+									<li>
+										<a href="${pageContext.request.contextPath }/board?a=list&cur=${status.index}&keyword=${param.keyword}" id = "linkpage">
+											${status.index}
+										</a>
+									</li>
+								</c:when>
+								<c:otherwise>
+									<li>${status.index}</li>
+								</c:otherwise>
+							</c:choose>
+						</c:forEach>
+							<li>
+								<a href="${pageContext.request.contextPath }/board?a=list&cur=${page.nextPage }&keyword=${param.keyword}">
+									▶
+								</a>
+							</li>
 					</ul>
 				</div>
 				<!-- pager 추가 -->

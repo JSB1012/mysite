@@ -9,11 +9,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.douzone.mysite.vo.BoardVo;
-import com.douzone.mysite.vo.GuestbookVo;
+import com.douzone.mysite.vo.PageVo;
 
 public class BoardRepository {
-	
-	
+
 	public List<BoardVo> search(String kwd) {
 		List<BoardVo> result = new ArrayList<>();
 
@@ -77,7 +76,7 @@ public class BoardRepository {
 		return result;
 	}
 
-	public List<BoardVo> findAll() {
+	public List<BoardVo> findAll(PageVo page, String kwd) {
 		List<BoardVo> result = new ArrayList<>();
 		Connection connection = null;
 		PreparedStatement pstmt = null;
@@ -87,11 +86,15 @@ public class BoardRepository {
 			connection = getConnection();
 
 			String sql = "select a.no, a.title, a.contents, a.hit, a.reg_date, a.g_no, a.o_no, a.depth, a.user_no, b.name"
-					+ " from board a, user b where a.user_no = b.no " 
+					+ " from board a, user b where a.user_no = b.no "
+					+ " and a.title like ?"
 					+ " order by a.g_no desc, "
-					+ " a.o_no asc, a.depth asc";
+					+ " a.o_no asc, a.depth asc"
+					+ "  limit ?, 5";
 
 			pstmt = connection.prepareStatement(sql);
+			pstmt.setString(1, "%" + kwd + "%");
+			pstmt.setInt(2, page.getNum()-1);
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
@@ -273,7 +276,7 @@ public class BoardRepository {
 		}
 		return vo;
 	}
-	
+
 	public void delete(int no) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -304,7 +307,7 @@ public class BoardRepository {
 			}
 		}
 	}
-	
+
 	public void update(BoardVo vo) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -338,7 +341,7 @@ public class BoardRepository {
 		}
 
 	}
-	
+
 	public BoardVo boardInfo(int no) {
 		BoardVo boardVo = null;
 		Connection conn = null;
@@ -390,8 +393,7 @@ public class BoardRepository {
 
 		return boardVo;
 	}
-	
-	
+
 	public boolean replyUpdate(BoardVo vo) {
 		boolean result = false;
 		Connection conn = null;
@@ -404,7 +406,7 @@ public class BoardRepository {
 
 			pstmt = conn.prepareStatement(sql);
 
-			//System.out.println(vo);
+			// System.out.println(vo);
 
 			pstmt.setLong(1, vo.getGroupNo());
 			pstmt.setLong(2, vo.getOrderNo());
@@ -429,8 +431,8 @@ public class BoardRepository {
 		return result;
 
 	}
-	
-	public boolean replyInsert(BoardVo vo) {	
+
+	public boolean replyInsert(BoardVo vo) {
 		boolean result = false;
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -470,6 +472,86 @@ public class BoardRepository {
 		return result;
 	}
 
+	public int getCount() {
+		int rowCount = 0;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+
+			conn = getConnection();
+
+			String sql = "select * from board";
+			pstmt = conn.prepareStatement(sql);
+
+			rs = pstmt.executeQuery();
+
+			rs.last();
+
+			rowCount = rs.getRow();
+
+		} catch (SQLException e) {
+			System.out.println("error:" + e);
+		} finally {
+			try {
+				if (rs != null) {
+					rs.close();
+				}
+				if (pstmt != null) {
+					pstmt.close();
+				}
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
+		return rowCount;
+	}
+	
+	public int getCountSearch(String kwd) {
+		int rowCount = 0;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+
+			conn = getConnection();
+
+			String sql = "select * from board where title like ?";
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, "%" + kwd + "%");
+			rs = pstmt.executeQuery();
+			rs.last();
+
+			rowCount = rs.getRow();
+
+		} catch (SQLException e) {
+			System.out.println("error:" + e);
+		} finally {
+			try {
+				if (rs != null) {
+					rs.close();
+				}
+				if (pstmt != null) {
+					pstmt.close();
+				}
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
+		return rowCount;
+	}
+
 	private Connection getConnection() throws SQLException {
 		Connection connection = null;
 
@@ -483,15 +565,4 @@ public class BoardRepository {
 
 		return connection;
 	}
-
-
-
-
-
-
-
-
-
-
-
 }
