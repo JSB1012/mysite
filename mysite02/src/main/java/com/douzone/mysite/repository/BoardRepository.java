@@ -13,69 +13,6 @@ import com.douzone.mysite.vo.PageVo;
 
 public class BoardRepository {
 
-	public List<BoardVo> search(String kwd) {
-		List<BoardVo> result = new ArrayList<>();
-
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-
-		try {
-			conn = getConnection();
-
-			String sql = "select * from board where contents LIKE ? order by group_no desc, order_no asc, depth asc";
-			pstmt = conn.prepareStatement(sql);
-
-			pstmt.setString(1, "%" + kwd + "%");
-
-			rs = pstmt.executeQuery();
-
-			while (rs.next()) {
-				Long no = rs.getLong(1);
-				String title = rs.getString(2);
-				String contents = rs.getString(3);
-				Long hit = rs.getLong(4);
-				String regDate = rs.getString(5);
-				Long groupNo = rs.getLong(6);
-				Long orderNo = rs.getLong(7);
-				Long depth = rs.getLong(8);
-				Long userNo = rs.getLong(9);
-
-				BoardVo vo = new BoardVo();
-				vo.setNo(no);
-				vo.setTitle(title);
-				vo.setContents(contents);
-				vo.setHit(hit);
-				vo.setRegDate(regDate);
-				vo.setGroupNo(groupNo);
-				vo.setOrderNo(orderNo);
-				vo.setDepth(depth);
-				vo.setUserNo(userNo);
-
-				result.add(vo);
-			}
-
-		} catch (SQLException e) {
-			System.out.println("error:" + e);
-		} finally {
-			try {
-				if (rs != null) {
-					rs.close();
-				}
-				if (pstmt != null) {
-					pstmt.close();
-				}
-				if (conn != null) {
-					conn.close();
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-
-		return result;
-	}
-
 	public List<BoardVo> findAll(PageVo page, String kwd) {
 		List<BoardVo> result = new ArrayList<>();
 		Connection connection = null;

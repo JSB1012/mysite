@@ -115,11 +115,20 @@
 								</c:otherwise>
 							</c:choose>
 						</c:forEach>
+						<c:choose>
+						<c:when test="${page.pageSet * 5 >= page.totalPage }">
+							<li>
+									▶
+							</li>
+						</c:when>
+						<c:otherwise>
 							<li>
 								<a href="${pageContext.request.contextPath }/board?a=list&cur=${page.nextPage }&keyword=${param.keyword}">
 									▶
 								</a>
 							</li>
+						</c:otherwise>
+						</c:choose>
 					</ul>
 				</div>
 				<!-- pager 추가 -->

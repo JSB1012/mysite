@@ -47,7 +47,7 @@ public class PageVo {
 		
 		if(curPage % 5 ==0) {
 			this.nextPage = curPage + 1;	
-			this.prevPage = curPage - pageRange; 
+			this.prevPage = curPage - 9; 
 		} else if(curPage % 5 == 1){
 			this.nextPage = curPage + pageRange; 
 			this.prevPage = curPage - 5; 
