@@ -10,7 +10,7 @@ public class BoardActionFactory extends ActionFactory {
 		Action action = null;
 
 		if ("search".equals(actionName)) {
-			action = new IndexAction();
+			action = new IndexAction(); // 사용 X
 		} else if ("writeform".equals(actionName)) {
 			action = new WriteFormAction();
 		} else if ("write".equals(actionName)) {

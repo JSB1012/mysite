@@ -22,7 +22,7 @@ public class BoardRepository {
 		try {
 			connection = getConnection();
 
-			String sql = "select a.no, a.title, a.contents, a.hit, a.reg_date, a.g_no, a.o_no, a.depth, a.user_no, b.name"
+			String sql = "select a.no, a.title, a.contents, a.hit, date_format(a.reg_date, '%Y-%m-%d %H:%i'), a.g_no, a.o_no, a.depth, a.user_no, b.name"
 					+ " from board a, user b where a.user_no = b.no "
 					+ " and a.title like ?"
 					+ " order by a.g_no desc, "
