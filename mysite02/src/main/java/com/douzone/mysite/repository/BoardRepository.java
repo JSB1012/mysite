@@ -27,7 +27,7 @@ public class BoardRepository {
 					+ " and a.title like ?"
 					+ " order by a.g_no desc, "
 					+ " a.o_no asc, a.depth asc"
-					+ "  limit ?, 5";
+					+ "  limit ?, 10";
 
 			pstmt = connection.prepareStatement(sql);
 			pstmt.setString(1, "%" + kwd + "%");

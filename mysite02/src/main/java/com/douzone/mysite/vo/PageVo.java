@@ -11,7 +11,7 @@ public class PageVo {
 	private int nextPage;
 	private int prevPage;
 
-	private int cntPerPage = 5; // 페이지당 개수
+	private int cntPerPage = 10; // 페이지당 개수
 	private int pageRange = 5; // 밑에 5개
 	private int total;
 
