@@ -15,7 +15,7 @@
 		<c:import url="/WEB-INF/views/includes/header.jsp" />
 		<div id="content">
 			<div id="board">
-				<form id="search_form" action="${pageContext.request.contextPath }/board?a=list&keyword=${param.keyword}" method="post">
+				<form id="search_form" action="${pageContext.request.contextPath }/board?a=list&kwd=${kwd}" method="GET">
 					<input type="text" id="kwd" name="kwd" value="">
 					<input type="submit" value="찾기">
 				</form>
@@ -105,7 +105,7 @@
 							<c:choose>
 								<c:when test="${page.totalPage >= status.index }">
 									<li>
-										<a href="${pageContext.request.contextPath }/board?a=list&cur=${status.index}&keyword=${param.keyword}" id = "linkpage">
+										<a href="${pageContext.request.contextPath }/board?a=list&cur=${status.index}&kwd=${kwd}" id = "linkpage">
 											${status.index}
 										</a>
 									</li>
@@ -123,7 +123,7 @@
 						</c:when>
 						<c:otherwise>
 							<li>
-								<a href="${pageContext.request.contextPath }/board?a=list&cur=${page.nextPage }&keyword=${param.keyword}">
+								<a href="${pageContext.request.contextPath }/board?a=list&cur=${page.nextPage }&&kwd=${kwd}">
 									▶
 								</a>
 							</li>
