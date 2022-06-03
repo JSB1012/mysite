@@ -16,7 +16,7 @@
 		<div id="content">
 			<div id="board">
 				<form id="search_form" action="${pageContext.request.contextPath }/board?a=list&kwd=${kwd}" method="GET">
-					<input type="text" id="kwd" name="kwd" value="">
+					<input type="text" id="kwd" name="kwd" value="${kwd }">
 					<input type="submit" value="찾기">
 				</form>
 				<table class="tbl-ex">
@@ -97,7 +97,7 @@
 						</c:if>
 						<c:if test="${page.pageSet != 1}">
 							<li><a
-								href="${pageContext.request.contextPath }/board?a=list&cur=${page.prevPage}">◀</a></li>
+								href="${pageContext.request.contextPath }/board?a=list&cur=${page.prevPage}&kwd=${kwd}">◀</a></li>
 						</c:if>
 
 						<c:forEach begin="${page.beginPage }" end="${page.endPage }"
