@@ -9,9 +9,7 @@ public class BoardActionFactory extends ActionFactory {
 	public Action getAction(String actionName) {
 		Action action = null;
 
-		if ("search".equals(actionName)) {
-			action = new IndexAction(); // 사용 X
-		} else if ("writeform".equals(actionName)) {
+		if ("writeform".equals(actionName)) {
 			action = new WriteFormAction();
 		} else if ("write".equals(actionName)) {
 			action = new WriteAction();
