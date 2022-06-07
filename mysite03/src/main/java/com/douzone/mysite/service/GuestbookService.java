@@ -19,7 +19,6 @@ public class GuestbookService {
 	}
 	
 	public Boolean addMessage(GuestbookVo vo) {
-		System.out.println(vo);
 		return guestbookRepository.insert(vo);
 	}
 	
