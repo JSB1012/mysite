@@ -50,14 +50,27 @@
 			<artifactId>spring-webmvc</artifactId>
 			<version>${org.springframework-version}</version>
 		</dependency>
-		
+
 		<!-- Spring JDBC-->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-jdbc</artifactId>
 			<version>${org.springframework-version}</version>
 		</dependency>
-		
+
+		<!-- MyBatis -->
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis</artifactId>
+			<version>3.5.9</version>
+		</dependency>
+		<!-- MyBatis Spring -->
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis-spring</artifactId>
+			<version>2.0.7</version>
+		</dependency>
+
 		<!-- Common DBCP-->
 		<dependency>
 			<groupId>commons-dbcp</groupId>
@@ -65,7 +78,7 @@
 			<version>1.4</version>
 		</dependency>
 
-		
+
 		<!-- MariaDB JDBC Driver-->
 		<dependency>
 			<groupId>org.mariadb.jdbc</groupId>
