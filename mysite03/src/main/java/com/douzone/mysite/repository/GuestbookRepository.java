@@ -25,7 +25,7 @@ public class GuestbookRepository {
 			connection = getConnection();
 			
 			String sql =
-					"inser into guestbook " +
+					"insert into guestbook " +
 					" values(null, ?, ?, ?, now()) ";
 			pstmt = connection.prepareStatement(sql);
 
