@@ -1,6 +1,6 @@
 package com.douzone.mysite.controller;
 
-import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.douzone.mysite.service.BoardService;
 import com.douzone.mysite.vo.BoardVo;
@@ -24,9 +25,9 @@ public class BoardController {
 	
 	/***	메인	***/
 	@RequestMapping("")
-	public String index(Model model) {
-		List<BoardVo> list = boardService.getBoardList();
-		model.addAttribute("list", list);
+	public String index(@RequestParam(value="p", required=true, defaultValue="1") Integer page, @RequestParam(value = "kwd", required = true, defaultValue = "") String keyword, Model model) {
+		Map<String, Object> map = boardService.getContentsList(page, keyword);
+		model.addAttribute("map", map);
 		return "board/index";
 	}
 	

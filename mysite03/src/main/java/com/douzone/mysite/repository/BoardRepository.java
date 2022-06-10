@@ -71,7 +71,19 @@ public class BoardRepository {
 		
 		return sqlSession.selectOne( "board.findByNoAndUserNo", map );
 	}
+	
+	public int getTotalCount(String keyword) {
+		return sqlSession.selectOne("board.totalCount", keyword);
+	}
 
+	public List<BoardVo> findAllByPageAndKeword(String keyword, Integer page, Integer size) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("keyword", keyword);
+		map.put("startIndex", (page - 1) * size);
+		map.put("size", size);
+
+		return sqlSession.selectList("board.findAllByPageAndKeword", map);
+	}
 
 
 
