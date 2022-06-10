@@ -27,10 +27,6 @@ public class BoardRepository {
 		return sqlSession.selectList("board.findAll");
 	}
 	
-	public BoardVo findByNo(Long no) {
-		return sqlSession.selectOne( "board.findByNo", no );
-	}
-	
 	/***	조회수	***/
 	public int updateHit(Long no) {
 		return sqlSession.update( "board.updateHit", no );
@@ -51,14 +47,6 @@ public class BoardRepository {
 		return sqlSession.update( "board.updateGroupOrderNo", map );
 	}
 	
-	public BoardVo findByNoAndUserNo(Long no, Long userNo) {
-		Map<String, Long> map = new HashMap<String, Long>();
-		map.put( "no", no );
-		map.put( "userNo", userNo );
-		
-		return sqlSession.selectOne( "board.findByNoAndUserNo", map );
-	}
-	
 	/*** 수정 ***/
 	public boolean update(BoardVo boardVo) {
 		return sqlSession.update( "board.update", boardVo ) == 1;
@@ -72,8 +60,17 @@ public class BoardRepository {
 		return sqlSession.delete( "board.delete", map ) ==1;
 	}
 
+	public BoardVo findByNo(Long no) {
+		return sqlSession.selectOne( "board.findByNo", no );
+	}
 
-
+	public BoardVo findByNoAndUserNo(Long no, Long userNo) {
+		Map<String, Long> map = new HashMap<String, Long>();
+		map.put( "no", no );
+		map.put( "userNo", userNo );
+		
+		return sqlSession.selectOne( "board.findByNoAndUserNo", map );
+	}
 
 
 

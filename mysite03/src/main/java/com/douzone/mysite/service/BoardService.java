@@ -17,7 +17,8 @@ public class BoardService {
 	public List<BoardVo> getBoardList() {	
 		return boardRepository.findAll();
 	}
-
+	
+	/*** Contents 정보 가져오기 ***/
 	public BoardVo getContents(Long no) {
 		BoardVo boardVo = boardRepository.findByNo( no );
 		
@@ -49,12 +50,6 @@ public class BoardService {
 	/*** 답글시 g_no, o_no 수정 ***/
 	private boolean updateGroupOrderNo(BoardVo boardVo) {
 		return boardRepository.updateGroupOrderNo( boardVo.getGroupNo(), boardVo.getOrderNo() ) > 0;
-	}
-
-
-	public BoardVo getReply(Long no) {
-		BoardVo boardVo = boardRepository.findByNo( no );
-		return boardVo;
 	}
 
 	/*** 삭제 ***/
