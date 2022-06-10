@@ -14,7 +14,10 @@
 		<c:import url="/WEB-INF/views/includes/header.jsp"/>
 		<div id="content">
 			<div id="board">
-				<form class="board-form" method="post" action="${pageContext.request.contextPath }/board?a=reply&no=${vo.no}">
+				<form class="board-form" method="post" action="${pageContext.request.contextPath }/board/write">
+					<input type="hidden" name="groupNo" value="${boardVo.groupNo }">
+					<input type="hidden" name="orderNo" value="${boardVo.orderNo }">
+					<input type="hidden" name="depth" value="${boardVo.depth }">
 					<table class="tbl-ex">
 						<tr>
 							<th colspan="2">댓글 작성</th>

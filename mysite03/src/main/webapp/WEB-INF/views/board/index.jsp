@@ -38,7 +38,7 @@
 									<td>${count-status.index }</td>
 
 									<td style="text-align: left; padding-left: 0px">
-										<a href="${pageContext.request.contextPath }/board?a=view&no=${vo.no}">${vo.title }</a>
+										<a href="${pageContext.request.contextPath }/board/view/${vo.no}">${vo.title }</a>
 									</td>
 									<td>${vo.userName}</td>
 									<td>${vo.hit }</td>
@@ -48,7 +48,7 @@
 										<c:when
 											test="${not empty authUser && vo.userNo eq authUser.no}">
 											<td>
-												<a href="${pageContext.request.contextPath }/board?a=delete&no=${vo.no}" class="del">삭제</a></td>
+												<a href="${pageContext.request.contextPath }/board/delete/${vo.no}" class="del">삭제</a></td>
 										</c:when>
 										<c:otherwise>
 											<td></td>
@@ -66,7 +66,7 @@
 									<td>${count-status.index }</td>
 									<td style="text-align:left; padding-left:${20*vo.depth }px">
 										<img src='${pageContext.servletContext.contextPath }/assets/images/reply.png' />
-										<a href="${pageContext.request.contextPath }/board?a=view&no=${vo.no}">${vo.title }</a>
+										<a href="${pageContext.request.contextPath }/board/view/${vo.no}">${vo.title }</a>
 									</td>
 									<td>${vo.userName}</td>
 									<td>${vo.hit }</td>
@@ -76,7 +76,7 @@
 										<c:when
 											test="${not empty authUser && vo.userNo eq authUser.no}">
 											<td>
-												<a href="${pageContext.request.contextPath }/board?a=delete&no=${vo.no}" class="del">삭제</a></td>
+												<a href="${pageContext.request.contextPath }/board/delete/${vo.no}" class="del">삭제</a></td>
 										</c:when>
 										<c:otherwise>
 											<td></td>
@@ -134,7 +134,7 @@
 				<!-- pager 추가 -->
 
 				<div class="bottom">
-					<a href="${pageContext.request.contextPath }/board?a=writeform" id="new-book">글쓰기</a>
+					<a href="${pageContext.request.contextPath }/board/write" id="new-book">글쓰기</a>
 				</div>
 			</div>
 		</div>

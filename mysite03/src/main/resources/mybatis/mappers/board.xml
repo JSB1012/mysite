@@ -1,23 +1,121 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="board">
-	<select id="totalCount" parameterType="string" resultType="interger">
-	<choose>
-		<!-- test안에 적을때 _parameter로 검색시에도-->
-		<when test='_parameter == ""'>
-			<![CDATA[
-				select count(*) board;
-			]]>
-		</when>
-	
-	</choose>
-	
+	<select id="findAll" resultType="boardvo">
 		<![CDATA[
-		select count(*) 
-		from board
-		 where title like '%${_parameter}%' or contents like '%${_parameter}%'
+			select 
+				a.no, a.title, a.contents, a.hit, date_format(a.reg_date, '%Y-%m-%d %H:%i') as regDate, a.g_no, a.o_no, a.depth, a.user_no as userNo, b.name as userName
+			from 
+				board a, user b
+			where 
+				a.user_no = b.no
+			order by
+				 a.g_no desc, a.o_no asc, a.depth asc
 		]]>
-		
-		
 	</select>
+	
+	<select id="findByNo" resultType="boardvo">
+		<![CDATA[
+ 			select 
+ 				no,title,contents,hit,reg_date,g_no as groupNo,o_no as orderNo, depth, user_no as userNo
+ 			from 
+ 				board
+			where no=#{no }
+		]]>
+	</select>
+	
+	<update id="updateHit" parameterType="long">
+		<![CDATA[
+		update board
+		   set hit = hit + 1
+		 where no=#{no }
+		]]>	
+	</update>
+	
+	<insert id="insert" parameterType="boardvo">
+		<choose>
+			<when test="groupNo == null">
+				<![CDATA[
+				insert
+				  into board
+				values ( null,
+						 #{title },
+						 #{contents },
+						 0,
+						 now(),
+						 ( select ifnull( max( g_no ), 0 ) + 1 from board a ),
+						 0, 
+						 0, 
+						 #{userNo } )
+				]]>
+			</when>
+			<otherwise>
+				<![CDATA[
+				insert
+				  into board
+				values ( null,
+						 #{title },
+						 #{contents },
+						  0,
+						 now(),
+						 #{groupNo },
+						 #{orderNo }, 
+						 #{depth }, 
+						 #{userNo } )				
+				]]>
+			</otherwise>
+		</choose>
+	</insert>
+	
+	<select id="boardInfo" resultType="boardvo">
+		<![CDATA[
+			select 
+				no, g_no as groupNo, o_no as orderNo, depth
+			from board where no = #{no }
+		]]>
+	</select>
+	
+	<update id="updateGroupOrderNo" parameterType="map">
+		<![CDATA[
+		update board
+		   set o_no = o_no + 1
+		 where g_no = #{groupNo }
+		   and o_no >= #{orderNo }
+		]]>	
+	</update>
+	
+	<select id="findByNoAndUserNo" parameterType="map" resultType="boardvo">
+		<![CDATA[
+		select	no,
+				title,
+				contents
+		   from board
+		  where no = #{no }
+		    and user_no = #{userNo }		
+		]]>		
+	</select>
+	
+	<update id="update" parameterType="boardVo">
+		<![CDATA[
+		update board 
+		   set title=#{title },
+		       contents=#{contents }
+		 where no=#{no }
+		   and user_no=#{userNo }		
+		]]>	
+	</update>
+	
+	<delete id="delete" parameterType="map" > 
+		<![CDATA[
+		delete
+		  from board 
+		 where no = #{no }
+		   and user_no = #{userNo }
+		]]>	
+	</delete>		
+	
+
+	
+
+	
 </mapper>

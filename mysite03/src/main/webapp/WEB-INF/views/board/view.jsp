@@ -20,13 +20,13 @@
 					</tr>
 					<tr>
 						<td class="label">제목</td>
-						<td>${vo.title }</td>
+						<td>${boardVo.title }</td>
 					</tr>
 					<tr>
 						<td class="label">내용</td>
 						<td>
 							<div class="view-content">
-								${vo.contents }
+								${boardVo.contents }
 							</div>
 						</td>
 					</tr>
@@ -34,9 +34,9 @@
 				<div class="bottom">
 					<a href="${pageContext.request.contextPath }/board">글목록</a>
 					<c:if test="${not empty authUser}">
-						<a href="${pageContext.request.contextPath }/board?a=replyform&no=${vo.no}">댓글작성</a>
-							<c:if test='${vo.userNo eq authUser.no}'>
-								<a href="${pageContext.request.contextPath }/board?a=updateform&no=${vo.no }">글수정</a>
+						<a href="${pageContext.request.contextPath }/board/reply/${boardVo.no}">댓글작성</a>
+							<c:if test='${boardVo.userNo eq authUser.no}'>
+								<a href="${pageContext.request.contextPath }/board/modify/${boardVo.no }">글수정</a>
 							</c:if>
 					</c:if>
 				</div>

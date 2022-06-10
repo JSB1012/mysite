@@ -15,18 +15,7 @@
 
 		<div id="content">
 			<div id="board">
-				<form class="board-form" method="post" action="${pageContext.request.contextPath }/board">
-					<c:choose>
-						<c:when test="${vo != null}">
-							<input type="hidden" name="a" value="reply">
-						</c:when>
-						<c:otherwise>
-							<input type="hidden" name="a" value="write">
-						</c:otherwise>
-					</c:choose>
-					<input type="hidden" name="g_no" value="${vo.groupNo }">
-					<input type="hidden" name="o_no" value="${vo.orderNo }">
-					<input type="hidden" name="depth" value="${vo.depth }">
+				<form class="board-form" method="post" action="${pageContext.request.contextPath }/board/write">
 					<table class="tbl-ex">
 						<tr>
 							<th colspan="2">글쓰기</th>
