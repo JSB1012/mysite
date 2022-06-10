@@ -50,6 +50,12 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
+		<!-- spring aspect -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-aspects</artifactId>
+			<version>${org.springframework-version}</version>
+		</dependency>
 		<!-- Spring MVC -->
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -110,7 +116,7 @@
 			<artifactId>logback-classic</artifactId>
 			<version>1.2.11</version>
 		</dependency>
-		
+
 		<!-- Common Fileupload -->
 		<dependency>
 			<groupId>commons-fileupload</groupId>
@@ -122,7 +128,7 @@
 			<artifactId>commons-io</artifactId>
 			<version>2.11.0</version>
 		</dependency>
-		
+
 		<!-- servlet -->
 		<dependency>
 			<groupId>javax.servlet</groupId>

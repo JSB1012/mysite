@@ -13,7 +13,10 @@
 		http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context
 		http://www.springframework.org/schema/context/spring-context.xsd">
-		
+	
+	<!-- Auto Proxy -->	
+	<aop:aspectj-autoproxy />
+	
 	<!-- MVC Resource Mapping -->
 	<mvc:resources mapping="/assets/gallery/**" location="file:/mysite-uploads/"  />
 	
