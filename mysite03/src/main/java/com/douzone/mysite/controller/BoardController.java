@@ -12,9 +12,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.douzone.mysite.security.Auth;
 import com.douzone.mysite.service.BoardService;
 import com.douzone.mysite.vo.BoardVo;
 import com.douzone.mysite.vo.UserVo;
+import com.douzone.mysite.web.WebUtil;
 
 @Controller
 @RequestMapping("/board")
@@ -43,40 +45,26 @@ public class BoardController {
 	}
 	
 	/***	글쓰기	***/
+	@Auth
 	@RequestMapping(value="/write", method=RequestMethod.GET) 
-	public String write(HttpSession session) {
-		// 접근 제어(Access Control)//////////////////////////////////
-		UserVo authUser = (UserVo)session.getAttribute("authUser");
-		if(authUser == null) {
-			return "redirect:/user/login";
-		}
-		////////////////////////////////////////////////////////////	
-		
+	public String write() {
 		return "board/write";
 	}
 	
+	@Auth
 	@RequestMapping(value="/write", method=RequestMethod.POST)
-	public String write(HttpSession session, BoardVo boardVo) {
-		// 접근 제어(Access Control)//////////////////////////////////
+	public String write(HttpSession session, BoardVo boardVo, @RequestParam(value = "p", required = true, defaultValue = "1") Integer page, @RequestParam(value = "kwd", required = true, defaultValue = "") String keyword) {
 		UserVo authUser = (UserVo)session.getAttribute("authUser");
-		if(authUser == null) {
-			return "redirect:/user/login";
-		}
-		////////////////////////////////////////////////////////////	
+	
 		boardVo.setUserNo(authUser.getNo());
 		boardService.addContents(boardVo);
-		return "redirect:/board";
+		return "redirect:/board?p=" + page + "&kwd=" + WebUtil.encodeURL(keyword, "UTF-8");
 	}
 	
 	/***	답글	***/
+	@Auth
 	@RequestMapping(value="/reply/{no}")
-	public String reply(HttpSession session, @PathVariable("no") Long no, Model model) {
-		// 접근 제어(Access Control)//////////////////////////////////
-		UserVo authUser = (UserVo)session.getAttribute("authUser");
-		if(authUser == null) {
-			return "redirect:/user/login";
-		}
-		////////////////////////////////////////////////////////////
+	public String reply(@PathVariable("no") Long no, Model model) {
 		BoardVo boardVo = boardService.getContents(no);
 		boardVo.setOrderNo(boardVo.getOrderNo() + 1);
 		boardVo.setDepth(boardVo.getDepth() + 1);
@@ -87,28 +75,27 @@ public class BoardController {
 	}
 	
 	/***	수정	***/
+	@Auth
 	@RequestMapping(value="/modify/{no}", method=RequestMethod.GET)
 	public String modify(HttpSession session, @PathVariable("no") Long no, Model model) {
-		// 접근 제어(Access Control)//////////////////////////////////
 		UserVo authUser = (UserVo)session.getAttribute("authUser");
-		if(authUser == null) {
-			return "redirect:/user/login";
-		}
-		////////////////////////////////////////////////////////////	
+	
 		BoardVo boardVo = boardService.getContents(no, authUser.getNo());
 		model.addAttribute("boardVo", boardVo);
 		return "board/modify";
 	}
 	
+	@Auth
 	@RequestMapping(value = "/modify", method = RequestMethod.POST)
-	public String modify(HttpSession session, BoardVo boardVo) {
+	public String modify(HttpSession session, BoardVo boardVo, @RequestParam(value = "p", required = true, defaultValue = "1") Integer page, @RequestParam(value = "kwd", required = true, defaultValue = "") String keyword) {
 		UserVo authUser = (UserVo)session.getAttribute("authUser");
 		boardVo.setUserNo(authUser.getNo());
 		boardService.modifyContents(boardVo);
-		return "redirect:/board/view/" + boardVo.getNo();
+		return "redirect:/board/view/" + boardVo.getNo() + "?p=" + page + "&kwd=" + WebUtil.encodeURL(keyword, "UTF-8");
 	}
 	
 	/***	삭제	***/
+	@Auth
 	@RequestMapping("/delete/{no}")
 	public String delete(HttpSession session, @PathVariable("no") Long no) {
 		UserVo authUser = (UserVo)session.getAttribute("authUser");
