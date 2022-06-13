@@ -28,6 +28,8 @@ public class BoardController {
 	public String index(@RequestParam(value="p", required=true, defaultValue="1") Integer page, @RequestParam(value = "kwd", required = true, defaultValue = "") String keyword, Model model) {
 		Map<String, Object> map = boardService.getContentsList(page, keyword);
 		model.addAttribute("map", map);
+		//model.addAllAttributes(map);
+		//model.addAttribute("list", map.get("list));
 		return "board/index";
 	}
 	
