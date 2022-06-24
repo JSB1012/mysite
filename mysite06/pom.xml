@@ -1,18 +1,18 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	
+
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>2.6.4</version>
-		<relativePath /> 
+		<relativePath />
 	</parent>
-		
+
 	<groupId>com.douzone</groupId>
 	<artifactId>mysite06</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
-	
+
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.build.outputEncoding>UTF-8</project.build.outputEncoding>
@@ -43,7 +43,7 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-validation</artifactId>
 		</dependency>
-		
+
 		<!-- Common Fileupload -->
 		<dependency>
 			<groupId>commons-fileupload</groupId>
@@ -55,7 +55,7 @@
 			<artifactId>commons-io</artifactId>
 			<version>2.11.0</version>
 		</dependency>
-				
+
 		<!-- MyBatis Starter -->
 		<dependency>
 			<groupId>org.mybatis.spring.boot</groupId>
@@ -65,22 +65,22 @@
 
 		<!-- MariaDB JDBC Driver -->
 		<dependency>
-		    <groupId>org.mariadb.jdbc</groupId>
-		    <artifactId>mariadb-java-client</artifactId>
+			<groupId>org.mariadb.jdbc</groupId>
+			<artifactId>mariadb-java-client</artifactId>
 		</dependency>
-		
+
 		<!-- JSTL -->
 		<dependency>
-		    <groupId>javax.servlet</groupId>
-		    <artifactId>jstl</artifactId>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
 		</dependency>
-		
+
 		<!-- Tomcat Jasper -->
 		<dependency>
-		    <groupId>org.apache.tomcat.embed</groupId>
-		    <artifactId>tomcat-embed-jasper</artifactId>
+			<groupId>org.apache.tomcat.embed</groupId>
+			<artifactId>tomcat-embed-jasper</artifactId>
 		</dependency>
-		
+
 		<!-- Spring Boot Test -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -97,13 +97,24 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 			<plugin>
-		        <groupId>org.apache.maven.plugins</groupId>
-		        <artifactId>maven-war-plugin</artifactId>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
 				<configuration>
 					<warSourceDirectory>src/main/webapp</warSourceDirectory>
 					<failOnMissingWebXml>false</failOnMissingWebXml>
 				</configuration>
-			</plugin>			
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>tomcat-maven-plugin</artifactId>
+				<version>1.1</version>
+				<configuration>
+					<url>http://192.168.10.43:8080/manager/text</url>
+					<path>/mysite06</path>
+					<username>admin</username>
+					<password>hodoo1020</password>
+				</configuration>
+			</plugin>
 		</plugins>
-	</build>	
+	</build>
 </project>
