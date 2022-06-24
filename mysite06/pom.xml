@@ -109,10 +109,8 @@
 				<artifactId>tomcat-maven-plugin</artifactId>
 				<version>1.1</version>
 				<configuration>
-					<url>http://192.168.10.43:8080/manager/text</url>
-					<path>/mysite06</path>
-					<username>admin</username>
-					<password>hodoo1020</password>
+					<url>${tomcat.deploy.url}</url>
+					<server>tomcat-lx</server>
 				</configuration>
 			</plugin>
 		</plugins>
