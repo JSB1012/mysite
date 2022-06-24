@@ -41,7 +41,7 @@
 	</mvc:interceptors>
 	
 	<!-- MVC Resource Mapping -->
-	<mvc:resources mapping="/assets/gallery/**" location="file:/mysite-uploads/"  />
+	<mvc:resources mapping="/assets/gallery/**" location="file:/mysite-uploads/gallery/"  />
 	
 	<!-- Message Resource -->
 	<bean id="messageSource"
