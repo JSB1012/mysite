@@ -24,7 +24,10 @@ public class UserService {
 		return userRepository.findByNo(no);
 	}
 	
-
+	public UserVo getUser(String email) {
+		return userRepository.findByEmail(email);
+	}
+	
 	public UserVo getUser(String email, String password) {
 		UserVo vo = new UserVo();
 		vo.setEmail(email);
