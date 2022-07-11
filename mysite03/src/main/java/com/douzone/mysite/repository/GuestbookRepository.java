@@ -31,6 +31,14 @@ public class GuestbookRepository {
 		System.out.println(vo);
 		return result;
 	}
+//
+//	public List<GuestbookVo> findAllByNo(Long no) {
+//		return sqlSession.selectList("guestbook.findAllByNo", no);
+//	}
+
+	public List<GuestbookVo> findAll(Long no) {
+		return sqlSession.selectList("guestbook.findAllByNo", no);
+	}
 
 
 
